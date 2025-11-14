@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voz para Libras (VLibras)</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- VLibras Widget -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Voz → Texto → Libras</h1>
+      <p>Fale e veja a tradução em Libras com o avatar.</p>
+    </header>
+
+    <main>
+      <section class="controls">
+        <button id="startBtn">Iniciar reconhecimento</button>
+        <button id="stopBtn" disabled>Parar</button>
+        <label class="lang">
+          Idioma:
+          <select id="langSelect">
+            <option value="pt-BR" selected>Português (Brasil)</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="output">
+        <h2>Texto reconhecido</h2>
+        <div id="transcript" aria-live="polite"></div>
+
+        <div class="actions">
+          <button id="sendToVlibrasBtn" disabled>Enviar para VLibras</button>
+          <button id="clearBtn">Limpar</button>
+        </div>
+      </section>
+
+      <section class="avatar">
+        <h2>Avatar VLibras</h2>
+        <p>Use o botão acima para enviar o texto ao backend e acionar o avatar.</p>
+        <!-- Container padrão do VLibras -->
+        <div vw class="enabled">
+          <div vw-access-button class="active"></div>
+          <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <small>Projeto base usando Web Speech API + VLibras. Hospede este frontend no GitHub Pages.</small>
+    </footer>
+
+    <script>
+      // Inicializa o widget VLibras
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>

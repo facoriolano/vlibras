@@ -15,7 +15,7 @@ let historyData = [];
 function initSpeechRecognition() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
-    alert('Seu navegador não suporta reconhecimento de voz. Use Chrome ou Edge.');
+    alert('Seu navegador não suporta reconhecimento de voz. Use Google Chrome ou Microsoft Edge.');
     startBtn.disabled = true;
     return;
   }
@@ -61,7 +61,6 @@ function initSpeechRecognition() {
 initSpeechRecognition();
 
 startBtn.addEventListener('click', () => {
-  console.log("Botão iniciar clicado");
   fullTranscript = '';
   transcriptEl.textContent = '';
   sendBtn.disabled = true;
@@ -113,3 +112,15 @@ downloadBtn.addEventListener('click', () => {
     alert("Nenhum histórico para salvar.");
     return;
   }
+
+  const content = historyData.map((t, i) => `${i + 1}. ${t}`).join('\n\n');
+  const blob = new Blob([content], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'historico-libras.txt';
+  a.click();
+
+  URL.revokeObjectURL(url);
+});

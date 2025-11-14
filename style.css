@@ -89,3 +89,28 @@ footer small {
   max-width: 100%;
   max-height: 600px;
 }
+
+/* Histórico */
+.history ul {
+  list-style: none;
+  padding: 0;
+}
+.history li {
+  background: #0b1220;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.history button {
+  background: var(--accent);
+  color: #001519;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}

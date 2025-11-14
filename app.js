@@ -1,4 +1,3 @@
-// Elementos da interface
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
 const sendBtn = document.getElementById('sendToVlibrasBtn');
@@ -10,11 +9,10 @@ let recognition = null;
 let isListening = false;
 let fullTranscript = '';
 
-// Inicializa reconhecimento de voz
 function initSpeechRecognition() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
-    alert('Seu navegador não suporta reconhecimento de voz. Use Chrome ou Edge no PC ou Android.');
+    alert('Seu navegador não suporta reconhecimento de voz. Use Chrome ou Edge.');
     startBtn.disabled = true;
     return;
   }
@@ -59,7 +57,6 @@ function initSpeechRecognition() {
 
 initSpeechRecognition();
 
-// Botão iniciar
 startBtn.addEventListener('click', () => {
   fullTranscript = '';
   transcriptEl.textContent = '';
@@ -67,27 +64,23 @@ startBtn.addEventListener('click', () => {
   recognition.start();
 });
 
-// Botão parar
 stopBtn.addEventListener('click', () => {
   if (recognition && isListening) recognition.stop();
 });
 
-// Botão limpar
 clearBtn.addEventListener('click', () => {
   fullTranscript = '';
   transcriptEl.textContent = '';
   sendBtn.disabled = true;
 });
 
-// Botão enviar para VLibras (abre nova janela e copia texto)
 sendBtn.addEventListener('click', () => {
   const text = transcriptEl.textContent.trim();
   if (!text) return;
 
   navigator.clipboard.writeText(text).then(() => {
-    window.open('avatar.html', '_blank', 'width=800,height=600');
-    alert('Texto copiado! A janela do avatar foi aberta. Cole o texto lá para ver a tradução.');
+    alert('Texto copiado! Clique no botão azul do VLibras e cole o texto para ver a tradução.');
   }).catch(() => {
-    alert('Não foi possível copiar o texto. Copie manualmente e cole na janela do avatar.');
+    alert('Não foi possível copiar o texto. Copie manualmente e cole no VLibras.');
   });
 });

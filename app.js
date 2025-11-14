@@ -4,10 +4,13 @@ const sendBtn = document.getElementById('sendToVlibrasBtn');
 const clearBtn = document.getElementById('clearBtn');
 const transcriptEl = document.getElementById('transcript');
 const langSelect = document.getElementById('langSelect');
+const historyList = document.getElementById('historyList');
+const downloadBtn = document.getElementById('downloadHistoryBtn');
 
 let recognition = null;
 let isListening = false;
 let fullTranscript = '';
+let historyData = [];
 
 function initSpeechRecognition() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -60,6 +63,7 @@ initSpeechRecognition();
 startBtn.addEventListener('click', () => {
   fullTranscript = '';
   transcriptEl.textContent = '';
+  sendBtn.disabled = true;
   recognition.lang = langSelect.value;
   recognition.start();
 });
@@ -69,6 +73,24 @@ stopBtn.addEventListener('click', () => {
 });
 
 clearBtn.addEventListener('click', () => {
+  const text = transcriptEl.textContent.trim();
+  if (text) {
+    historyData.push(text);
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span>${text}</span>
+      <button class="repeatBtn">Repetir no VLibras</button>
+    `;
+    historyList.prepend(li);
+
+    li.querySelector('.repeatBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Texto copiado! Clique no botão azul do VLibras e cole para repetir.');
+      });
+    });
+  }
+
+  if (recognition && isListening) recognition.stop();
   fullTranscript = '';
   transcriptEl.textContent = '';
   sendBtn.disabled = true;
@@ -78,9 +100,4 @@ sendBtn.addEventListener('click', () => {
   const text = transcriptEl.textContent.trim();
   if (!text) return;
 
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Texto copiado! Clique no botão azul do VLibras e cole o texto para ver a tradução.');
-  }).catch(() => {
-    alert('Não foi possível copiar o texto. Copie manualmente e cole no VLibras.');
-  });
-});
+  navigator.clipboard

@@ -35,13 +35,12 @@ button {
 }
 button[disabled] { opacity: 0.5; cursor: not-allowed; }
 .output #transcript {
-  min-height: 90px;
+  min-height: 60px;
   border: 1px solid #1f2937;
   border-radius: 10px;
   padding: 12px;
   background: #0b1220;
 }
-.actions { display: flex; gap: 10px; margin-top: 10px; }
 .avatar p { color: var(--muted); margin-top: 0; }
 footer small { color: var(--muted); }
 

@@ -44,18 +44,6 @@ button[disabled] { opacity: 0.5; cursor: not-allowed; }
 .avatar p { color: var(--muted); margin-top: 0; }
 footer small { color: var(--muted); }
 
-/* Avatar VLibras redimensionável */
-#vlibrasContainer {
-  resize: both;
-  overflow: auto;
-  border: 2px dashed var(--accent);
-  padding: 8px;
-  min-width: 300px;
-  min-height: 250px;
-  max-width: 100%;
-  max-height: 600px;
-}
-
 /* Histórico */
 .history ul { list-style: none; padding: 0; }
 .history li {

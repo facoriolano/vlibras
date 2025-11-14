@@ -2,27 +2,35 @@
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
-    <title>VLibras Avatar</title>
+    <title>VLibras Avatar - Modo Palco</title>
     <style>
       body {
         margin: 0;
-        background: #000;
+        background: #000; /* fundo preto para destacar o avatar */
+        overflow: hidden; /* remove barras de rolagem */
       }
       .vw-plugin-wrapper {
-        transform: scale(2.2);
+        transform: scale(2.5); /* aumenta bastante o avatar */
         transform-origin: center;
       }
+      /* Esconde o botão azul de acessibilidade */
+      .vw-access-button {
+        display: none !important;
+      }
     </style>
+    <!-- VLibras Widget -->
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   </head>
   <body>
+    <!-- Container padrão do VLibras -->
     <div vw class="enabled">
-      <div vw-access-button class="active"></div>
       <div vw-plugin-wrapper>
         <div class="vw-plugin-top-wrapper"></div>
       </div>
     </div>
+
     <script>
+      // Inicializa o widget VLibras
       new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
   </body>

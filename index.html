@@ -31,13 +31,13 @@
 
         <div class="actions">
           <button id="sendToVlibrasBtn" disabled>Enviar para VLibras</button>
-          <button id="clearBtn">Limpar</button>
+          <button id="clearBtn">Salvar no histórico</button>
         </div>
       </section>
 
       <section class="avatar">
         <h2>Avatar VLibras</h2>
-        <p>Após reconhecer o texto, clique em “Enviar para VLibras”. O texto será copiado automaticamente. Depois, clique no botão azul do VLibras e cole o texto para ver o avatar sinalizar.</p>
+        <p>Clique em “Enviar para VLibras” para copiar o texto. Depois, clique no botão azul do VLibras e cole o texto para ver o avatar sinalizar.</p>
         <div id="vlibrasContainer" class="resizable">
           <div vw class="enabled">
             <div vw-access-button class="active"></div>
@@ -46,6 +46,12 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <section class="history">
+        <h2>Histórico de frases</h2>
+        <ul id="historyList"></ul>
+        <button id="downloadHistoryBtn">Baixar histórico (.txt)</button>
       </section>
     </main>
 

@@ -1,7 +1,4 @@
 // Configuração
-const BACKEND_URL = 'https://SEU_BACKEND_URL/translate'; // ajuste após subir o backend
-
-// Elementos
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
 const sendBtn = document.getElementById('sendToVlibrasBtn');
@@ -9,7 +6,6 @@ const clearBtn = document.getElementById('clearBtn');
 const transcriptEl = document.getElementById('transcript');
 const langSelect = document.getElementById('langSelect');
 
-// Estado
 let recognition = null;
 let isListening = false;
 let fullTranscript = '';
@@ -18,10 +14,11 @@ let fullTranscript = '';
 function initSpeechRecognition() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
-    alert('Seu navegador não suporta Web Speech API. Use Chrome/Edge no desktop ou Android.');
+    alert('Seu navegador não suporta reconhecimento de voz. Use Chrome ou Edge no PC ou Android.');
     startBtn.disabled = true;
     return;
   }
+
   recognition = new SR();
   recognition.lang = langSelect.value;
   recognition.continuous = true;
@@ -49,7 +46,7 @@ function initSpeechRecognition() {
   };
 
   recognition.onerror = (e) => {
-    console.error('Reconhecimento erro:', e.error);
+    console.error('Erro no reconhecimento:', e.error);
   };
 
   recognition.onend = () => {
@@ -63,7 +60,6 @@ function initSpeechRecognition() {
 initSpeechRecognition();
 
 startBtn.addEventListener('click', () => {
-  if (!recognition) return;
   fullTranscript = '';
   transcriptEl.textContent = '';
   recognition.lang = langSelect.value;
@@ -80,35 +76,14 @@ clearBtn.addEventListener('click', () => {
   sendBtn.disabled = true;
 });
 
-// Envia texto ao backend para tradução e aciona avatar
-sendBtn.addEventListener('click', async () => {
+// Envia texto para VLibras via área de transferência
+sendBtn.addEventListener('click', () => {
   const text = transcriptEl.textContent.trim();
   if (!text) return;
 
-  sendBtn.disabled = true;
-  sendBtn.textContent = 'Traduzindo...';
-
-  try {
-    const res = await fetch(BACKEND_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text })
-    });
-
-    if (!res.ok) throw new Error('Falha no backend');
-    const data = await res.json();
-
-    // data.signedSequence: sequência/markup retornada pela API de tradução
-    // Integração com o player VLibras:
-    // Se você usar vlibras-player-webjs, aqui você chamaria o método do player para tocar.
-    // Exemplo (placeholder): window.VLibrasPlayer.play(data.signedSequence)
-
-    alert('Texto enviado para VLibras. Se o player estiver configurado, o avatar será acionado.');
-  } catch (err) {
-    console.error(err);
-    alert('Erro ao traduzir. Verifique o backend.');
-  } finally {
-    sendBtn.textContent = 'Enviar para VLibras';
-    sendBtn.disabled = false;
-  }
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Texto copiado! Agora clique no botão azul do VLibras no canto da tela e cole o texto lá para ver o avatar sinalizar.');
+  }).catch(() => {
+    alert('Não foi possível copiar o texto. Copie manualmente e cole no VLibras.');
+  });
 });

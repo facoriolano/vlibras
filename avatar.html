@@ -11,19 +11,25 @@
         overflow: hidden;
       }
 
-      /* Aumenta o avatar e centraliza */
+      /* Aumenta o avatar; ajuste o scale conforme a TV */
       .vw-plugin-wrapper {
-        transform: scale(2.5);
+        transform: scale(2.2);
         transform-origin: center;
         z-index: 9999;
       }
 
-      
+      /* Mantenha o botão azul visível para ativar o campo de texto */
+      .vw-access-button {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+      }
     </style>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   </head>
   <body>
     <div vw class="enabled">
+      <div vw-access-button class="active"></div>
       <div vw-plugin-wrapper>
         <div class="vw-plugin-top-wrapper"></div>
       </div>

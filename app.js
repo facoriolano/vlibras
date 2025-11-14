@@ -61,6 +61,7 @@ function initSpeechRecognition() {
 initSpeechRecognition();
 
 startBtn.addEventListener('click', () => {
+  console.log("Botão iniciar clicado");
   fullTranscript = '';
   transcriptEl.textContent = '';
   sendBtn.disabled = true;
@@ -100,4 +101,15 @@ sendBtn.addEventListener('click', () => {
   const text = transcriptEl.textContent.trim();
   if (!text) return;
 
-  navigator.clipboard
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Texto copiado! Clique no botão azul do VLibras e cole o texto para ver a tradução.');
+  }).catch(() => {
+    alert('Não foi possível copiar o texto. Copie manualmente e cole no VLibras.');
+  });
+});
+
+downloadBtn.addEventListener('click', () => {
+  if (historyData.length === 0) {
+    alert("Nenhum histórico para salvar.");
+    return;
+  }

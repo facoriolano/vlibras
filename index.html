@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Voz para Libras (VLibras)</title>
+    <title>Voz → Texto → Libras</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- VLibras Widget -->
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   </head>
   <body>
@@ -38,23 +37,23 @@
 
       <section class="avatar">
         <h2>Avatar VLibras</h2>
-        <p>Após reconhecer o texto, clique em “Enviar para VLibras”. O texto será copiado automaticamente. Depois, clique no botão azul do VLibras no canto da tela e cole o texto para ver o avatar sinalizar.</p>
-        <!-- Container padrão do VLibras -->
-        <div vw class="enabled">
-          <div vw-access-button class="active"></div>
-          <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
+        <p>Após reconhecer o texto, clique em “Enviar para VLibras”. O texto será copiado automaticamente. Depois, clique no botão azul do VLibras e cole o texto para ver o avatar sinalizar.</p>
+        <div id="vlibrasContainer" class="resizable">
+          <div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+              <div class="vw-plugin-top-wrapper"></div>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
     <footer>
-      <small>Projeto base usando Web Speech API + VLibras. Hospede este frontend no GitHub Pages.</small>
+      <small>Projeto baseado em Web Speech API + VLibras. Hospede este repositório no GitHub Pages.</small>
     </footer>
 
     <script>
-      // Inicializa o widget VLibras
       new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="app.js"></script>

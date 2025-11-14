@@ -17,6 +17,17 @@
         right: 0;
         z-index: 9999;
       }
+      #textoAtual {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        color: white;
+        font-size: 18px;
+        font-family: sans-serif;
+        background: rgba(0,0,0,0.6);
+        padding: 8px 12px;
+        border-radius: 8px;
+      }
     </style>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   </head>
@@ -30,12 +41,14 @@
       </div>
     </div>
 
+    <div id="textoAtual">Aguardando fala...</div>
+
     <script>
       new window.VLibras.Widget('https://vlibras.gov.br/app');
 
       const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SR) {
-        alert('Este navegador não suporta reconhecimento de voz. Use Google Chrome ou Edge.');
+        document.getElementById('textoAtual').textContent = 'Navegador incompatível. Use Chrome ou Edge.';
       } else {
         const recognition = new SR();
         recognition.lang = 'pt-BR';
@@ -48,6 +61,7 @@
             if (res.isFinal) {
               const frase = res[0].transcript.trim();
               navigator.clipboard.writeText(frase).then(() => {
+                document.getElementById('textoAtual').textContent = frase;
                 console.log('Texto copiado para VLibras:', frase);
               });
             }
@@ -56,6 +70,7 @@
 
         recognition.onerror = (e) => {
           console.error('Erro no reconhecimento:', e.error);
+          document.getElementById('textoAtual').textContent = 'Erro: ' + e.error;
         };
 
         recognition.start();
